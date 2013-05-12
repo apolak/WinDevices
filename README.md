@@ -1,6 +1,7 @@
 # WinDevices
 
-Playing with SetupAPI and PnP Configuration Manager APIs in C#. Poke me on Twitter (@apolak) if you find it useful.
+Playing with SetupAPI and PnP Configuration Manager in C#. Poke me on Twitter (@apolak) if you find it useful.
+
 
 ## Backlog
 
@@ -13,8 +14,12 @@ Features:
 * Traversing the devnode tree
 * Enumerating installed setup classes
 * Reading setup class properties
+* Enumerating drivers
 
 Other:
 
-* Make use of CERs for reliable execution
-* Make use of security attributes
+* Design exception handling
+* Make use of constrained execution regions
+* Annotate members with security attributes
+* Ensure Windows XP compatibility
+* Implement platform support checks
