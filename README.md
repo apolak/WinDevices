@@ -1,6 +1,6 @@
 # WinDevices
 
-Playing with [SetupAPI] and [PnP Configuration Manager] in C#. Poke me on Twitter ([@apolak]) if you find it useful.
+Playing with [SetupAPI] and [PnP Configuration Manager] APIs in C#. Poke me on Twitter ([@apolak]) if you find it useful.
 
 
 ## Backlog
