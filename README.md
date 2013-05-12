@@ -1,6 +1,6 @@
 # WinDevices
 
-Playing with [SetupAPI] and [PnP Configuration Manager] in C#. Poke me on [Twitter] if you find it useful.
+Playing with [SetupAPI] and [PnP Configuration Manager] in C#. Poke me on Twitter ([@apolak]) if you find it useful.
 
 
 ## Backlog
@@ -27,6 +27,6 @@ Other:
 
 [SetupAPI]: http://msdn.microsoft.com/en-us/library/windows/hardware/ff550897.aspx
 [PnP Configuration Manager]: http://msdn.microsoft.com/pl-pl/library/windows/hardware/ff549717.aspx
-[Twitter]: https://twitter.com/apolak
+[@apolak]: https://twitter.com/apolak
 [constrained execution regions]: http://msdn.microsoft.com/en-us/library/ms228973.aspx
 [security attributes]: http://msdn.microsoft.com/en-us/library/dd233102.aspx
