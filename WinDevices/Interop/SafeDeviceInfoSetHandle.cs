@@ -26,6 +26,25 @@
          this.SetHandle(handle);
       }
 
+      internal static SafeDeviceInfoSetHandle Create(Guid? setupClassGuid, string machineName)
+      {
+         SafeDeviceInfoSetHandle handle;
+         if (setupClassGuid == null)
+         {
+            handle = NativeMethods.SetupDiCreateDeviceInfoListEx(
+               IntPtr.Zero, IntPtr.Zero, machineName, IntPtr.Zero);
+         }
+         else
+         {
+            var guid = (Guid)setupClassGuid;
+            handle = NativeMethods.SetupDiCreateDeviceInfoListEx(
+               ref guid, IntPtr.Zero, machineName, IntPtr.Zero);
+         }
+         if (handle.IsInvalid)
+            throw new Win32Exception();
+         return handle;
+      }
+
       internal static SafeDeviceInfoSetHandle FromSetupClassOptions(
          Guid? setupClassGuid,
          string enumerator,

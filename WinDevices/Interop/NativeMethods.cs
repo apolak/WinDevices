@@ -17,6 +17,20 @@
    internal static class NativeMethods
    {
       [DllImport("setupapi", CharSet = CharSet.Auto, SetLastError = true)]
+      public static extern SafeDeviceInfoSetHandle SetupDiCreateDeviceInfoListEx(
+         ref Guid ClassGuid,
+         IntPtr hwndParent,
+         string MachineName,
+         IntPtr Reserved);
+
+      [DllImport("setupapi", CharSet = CharSet.Auto, SetLastError = true)]
+      public static extern SafeDeviceInfoSetHandle SetupDiCreateDeviceInfoListEx(
+         IntPtr ClassGuid,
+         IntPtr hwndParent,
+         string MachineName,
+         IntPtr Reserved);
+
+      [DllImport("setupapi", CharSet = CharSet.Auto, SetLastError = true)]
       public static extern SafeDeviceInfoSetHandle SetupDiGetClassDevsEx(
          ref Guid ClassGuid,
          string Enumerator,
