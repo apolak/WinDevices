@@ -5,12 +5,12 @@
    using Microsoft.Win32.SafeHandles;
 
    [Flags]
-   internal enum DeviceInfoSetAdditionOptions
+   internal enum DeviceAdditionOptions
    {
       None = 0,
-      OnlyDevicesWithDefaultInterface = 0x00000001,
-      OnlyActiveDevices = 0x00000002,
-      OnlyDevicesInCurrentProfile = 0x00000008
+      SupportsDefaultInterface = 0x00000001,
+      Active = 0x00000002,
+      CurrentProfile = 0x00000008
    }
 
    public sealed class SafeDeviceInfoSetHandle : SafeHandleZeroOrMinusOneIsInvalid
@@ -29,10 +29,10 @@
       internal static SafeDeviceInfoSetHandle FromSetupClassOptions(
          Guid? setupClassGuid,
          string enumerator,
-         DeviceInfoSetAdditionOptions options,
+         DeviceAdditionOptions options,
          string machineName)
       {
-         return CreateInternal(
+         return FromSetupOrInterfaceClassOptions(
             setupClassGuid,
             enumerator,
             SetupDiGetClassDevsEx_Flags.None,
@@ -43,13 +43,13 @@
       internal static SafeDeviceInfoSetHandle FromInterfaceClassOptions(
          Guid? interfaceClassGuid,
          string deviceInstanceId,
-         DeviceInfoSetAdditionOptions options,
+         DeviceAdditionOptions options,
          string machineName)
       {
          var flags = SetupDiGetClassDevsEx_Flags.DIGCF_DEVICEINTERFACE;
-         if ((options & DeviceInfoSetAdditionOptions.OnlyDevicesWithDefaultInterface) != 0)
+         if ((options & DeviceAdditionOptions.SupportsDefaultInterface) != 0)
             flags |= SetupDiGetClassDevsEx_Flags.DIGCF_DEFAULT;
-         return CreateInternal(
+         return FromSetupOrInterfaceClassOptions(
             interfaceClassGuid,
             deviceInstanceId,
             flags,
@@ -57,16 +57,16 @@
             machineName);
       }
 
-      private static SafeDeviceInfoSetHandle CreateInternal(
+      private static SafeDeviceInfoSetHandle FromSetupOrInterfaceClassOptions(
          Guid? setupOrInterfaceClassGuid,
          string enumeratorOrDeviceInstanceId,
          SetupDiGetClassDevsEx_Flags flags,
-         DeviceInfoSetAdditionOptions options,
+         DeviceAdditionOptions options,
          string machineName)
       {
-         if ((options & DeviceInfoSetAdditionOptions.OnlyActiveDevices) != 0)
+         if ((options & DeviceAdditionOptions.Active) != 0)
             flags |= SetupDiGetClassDevsEx_Flags.DIGCF_PRESENT;
-         if ((options & DeviceInfoSetAdditionOptions.OnlyDevicesInCurrentProfile) != 0)
+         if ((options & DeviceAdditionOptions.CurrentProfile) != 0)
             flags |= SetupDiGetClassDevsEx_Flags.DIGCF_PROFILE;
          SafeDeviceInfoSetHandle handle;
          if (setupOrInterfaceClassGuid == null)
