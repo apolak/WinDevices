@@ -33,6 +33,8 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceInfoSet.cs" />
+    <Compile Include="Interop\NativeConstants.cs" />
     <Compile Include="Interop\NativeMethods.cs" />
     <Compile Include="Interop\SafeDeviceInfoSetHandle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

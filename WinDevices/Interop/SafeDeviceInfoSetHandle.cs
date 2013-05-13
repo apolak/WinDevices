@@ -4,15 +4,6 @@
    using System.ComponentModel;
    using Microsoft.Win32.SafeHandles;
 
-   [Flags]
-   internal enum DeviceAdditionOptions
-   {
-      None = 0,
-      SupportsDefaultInterface = 0x00000001,
-      Active = 0x00000002,
-      CurrentProfile = 0x00000008
-   }
-
    public sealed class SafeDeviceInfoSetHandle : SafeHandleZeroOrMinusOneIsInvalid
    {
       private SafeDeviceInfoSetHandle()
