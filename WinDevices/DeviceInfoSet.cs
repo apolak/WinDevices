@@ -29,39 +29,36 @@
       }
 
       public static DeviceInfoSet FromDeviceOptions(
-         string deviceInstanceId, DeviceAdditionOptions options, string machineName)
+         string deviceInstanceId, DeviceAdditionOptions options)
       {
          var handle = SafeDeviceInfoSetHandle.FromInterfaceClassOptions(
-            null, deviceInstanceId, options, machineName);
+            null, deviceInstanceId, options);
          var deviceInfoSet = new DeviceInfoSet(handle, true);
          return deviceInfoSet;
       }
 
       public static DeviceInfoSet FromSetupClassOptions(
-         Guid setupClassGuid, string enumerator, DeviceAdditionOptions options, string machineName)
+         Guid setupClassGuid, string enumerator, DeviceAdditionOptions options)
       {
          var handle = SafeDeviceInfoSetHandle.FromSetupClassOptions(
-            setupClassGuid, enumerator, options, machineName);
+            setupClassGuid, enumerator, options);
          var deviceInfoSet = new DeviceInfoSet(handle, true);
          return deviceInfoSet;
       }
 
       public static DeviceInfoSet FromAnySetupClassOptions(
-         string enumerator, DeviceAdditionOptions options, string machineName)
+         string enumerator, DeviceAdditionOptions options)
       {
          var handle = SafeDeviceInfoSetHandle.FromSetupClassOptions(
-            null, enumerator, options, machineName);
+            null, enumerator, options);
          var deviceInfoSet = new DeviceInfoSet(handle, true);
          return deviceInfoSet;
       }
 
       public static DeviceInfoSet FromInterfaceClassOptions(
-         Guid setupClassGuid,
-         Guid interfaceClassGuid,
-         DeviceAdditionOptions options,
-         string machineName)
+         Guid setupClassGuid, Guid interfaceClassGuid, DeviceAdditionOptions options)
       {
-         var handle = SafeDeviceInfoSetHandle.Create(setupClassGuid, machineName);
+         var handle = SafeDeviceInfoSetHandle.Create(setupClassGuid);
          var flags = SetupDiGetClassDevsEx_Flags.DIGCF_DEVICEINTERFACE;
          if ((options & DeviceAdditionOptions.SupportsDefaultInterface) != 0)
             flags |= SetupDiGetClassDevsEx_Flags.DIGCF_DEFAULT;
@@ -76,7 +73,7 @@
                IntPtr.Zero,
                flags,
                handle,
-               machineName,
+               IntPtr.Zero,
                IntPtr.Zero) == new IntPtr(NativeConstants.INVALID_HANDLE_VALUE))
          {
             throw new Win32Exception();
@@ -86,10 +83,10 @@
       }
 
       public static DeviceInfoSet FromInterfaceClassOptions(
-         Guid interfaceClassGuid, DeviceAdditionOptions options, string machineName)
+         Guid interfaceClassGuid, DeviceAdditionOptions options)
       {
          var handle = SafeDeviceInfoSetHandle.FromInterfaceClassOptions(
-            interfaceClassGuid, null, options, machineName);
+            interfaceClassGuid, null, options);
          var deviceInfoSet = new DeviceInfoSet(handle, true);
          return deviceInfoSet;
       }
@@ -97,8 +94,7 @@
       public static DeviceInfoSet FromAnyInterfaceClassOptions(
          DeviceAdditionOptions options, string machineName)
       {
-         var handle = SafeDeviceInfoSetHandle.FromInterfaceClassOptions(
-            null, null, options, machineName);
+         var handle = SafeDeviceInfoSetHandle.FromInterfaceClassOptions(null, null, options);
          var deviceInfoSet = new DeviceInfoSet(handle, true);
          return deviceInfoSet;
       }

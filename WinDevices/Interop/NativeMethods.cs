@@ -58,14 +58,14 @@
       public static extern SafeDeviceInfoSetHandle SetupDiCreateDeviceInfoListEx(
          ref Guid ClassGuid,
          IntPtr hwndParent,
-         string MachineName,
+         IntPtr MachineName,
          IntPtr Reserved);
 
       [DllImport("setupapi", CharSet = CharSet.Auto, SetLastError = true)]
       public static extern SafeDeviceInfoSetHandle SetupDiCreateDeviceInfoListEx(
          IntPtr ClassGuid,
          IntPtr hwndParent,
-         string MachineName,
+         IntPtr MachineName,
          IntPtr Reserved);
 
       [DllImport("setupapi", CharSet = CharSet.Auto, SetLastError = true)]
@@ -75,7 +75,7 @@
          IntPtr hwndParent,
          SetupDiGetClassDevsEx_Flags Flags,
          IntPtr DeviceInfoSet,
-         string MachineName,
+         IntPtr MachineName,
          IntPtr Reserved);
 
       [DllImport("setupapi", CharSet = CharSet.Auto, SetLastError = true)]
@@ -85,7 +85,7 @@
          IntPtr hwndParent,
          SetupDiGetClassDevsEx_Flags Flags,
          IntPtr DeviceInfoSet,
-         string MachineName,
+         IntPtr MachineName,
          IntPtr Reserved);
 
       [DllImport("setupapi", CharSet = CharSet.Auto, SetLastError = true)]
@@ -95,7 +95,7 @@
          IntPtr hwndParent,
          SetupDiGetClassDevsEx_Flags Flags,
          SafeDeviceInfoSetHandle DeviceInfoSet,
-         string MachineName,
+         IntPtr MachineName,
          IntPtr Reserved);
 
       [DllImport("setupapi", CharSet = CharSet.Auto, SetLastError = true)]
@@ -105,7 +105,7 @@
          IntPtr hwndParent,
          SetupDiGetClassDevsEx_Flags Flags,
          SafeDeviceInfoSetHandle DeviceInfoSet,
-         string MachineName,
+         IntPtr MachineName,
          IntPtr Reserved);
 
       [DllImport("setupapi", SetLastError = true)]

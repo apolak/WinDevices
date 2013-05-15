@@ -17,19 +17,19 @@
          this.SetHandle(handle);
       }
 
-      internal static SafeDeviceInfoSetHandle Create(Guid? setupClassGuid, string machineName)
+      internal static SafeDeviceInfoSetHandle Create(Guid? setupClassGuid)
       {
          SafeDeviceInfoSetHandle handle;
          if (setupClassGuid == null)
          {
             handle = NativeMethods.SetupDiCreateDeviceInfoListEx(
-               IntPtr.Zero, IntPtr.Zero, machineName, IntPtr.Zero);
+               IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
          }
          else
          {
             var guid = (Guid)setupClassGuid;
             handle = NativeMethods.SetupDiCreateDeviceInfoListEx(
-               ref guid, IntPtr.Zero, machineName, IntPtr.Zero);
+               ref guid, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
          }
          if (handle.IsInvalid)
             throw new Win32Exception();
@@ -39,22 +39,19 @@
       internal static SafeDeviceInfoSetHandle FromSetupClassOptions(
          Guid? setupClassGuid,
          string enumerator,
-         DeviceAdditionOptions options,
-         string machineName)
+         DeviceAdditionOptions options)
       {
          return FromSetupOrInterfaceClassOptions(
             setupClassGuid,
             enumerator,
             SetupDiGetClassDevsEx_Flags.None,
-            options,
-            machineName);
+            options);
       }
 
       internal static SafeDeviceInfoSetHandle FromInterfaceClassOptions(
          Guid? interfaceClassGuid,
          string deviceInstanceId,
-         DeviceAdditionOptions options,
-         string machineName)
+         DeviceAdditionOptions options)
       {
          var flags = SetupDiGetClassDevsEx_Flags.DIGCF_DEVICEINTERFACE;
          if ((options & DeviceAdditionOptions.SupportsDefaultInterface) != 0)
@@ -63,16 +60,14 @@
             interfaceClassGuid,
             deviceInstanceId,
             flags,
-            options,
-            machineName);
+            options);
       }
 
       private static SafeDeviceInfoSetHandle FromSetupOrInterfaceClassOptions(
          Guid? setupOrInterfaceClassGuid,
          string enumeratorOrDeviceInstanceId,
          SetupDiGetClassDevsEx_Flags flags,
-         DeviceAdditionOptions options,
-         string machineName)
+         DeviceAdditionOptions options)
       {
          if ((options & DeviceAdditionOptions.Active) != 0)
             flags |= SetupDiGetClassDevsEx_Flags.DIGCF_PRESENT;
@@ -88,7 +83,7 @@
                IntPtr.Zero,
                flags,
                IntPtr.Zero,
-               machineName,
+               IntPtr.Zero,
                IntPtr.Zero);
          }
          else
@@ -100,7 +95,7 @@
                IntPtr.Zero,
                flags,
                IntPtr.Zero,
-               machineName,
+               IntPtr.Zero,
                IntPtr.Zero);
          }
          if (handle.IsInvalid)
